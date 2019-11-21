@@ -1,0 +1,120 @@
+EMPLEADO
+package pe.edu.upc.spring.serviceimpl;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+import pe.edu.upc.spring.model.Empleado;
+
+import pe.edu.upc.spring.repository.IEmpleadoDAO;
+
+import pe.edu.upc.spring.service.IEmpleadoService;
+@Service
+public class EmpleadoServiceImpl implements IEmpleadoService {
+
+	@Autowired
+	private IEmpleadoDAO dEmpleado;
+	
+	@Override
+	public boolean insertar(Empleado empleado) {
+		Empleado objEmpleado = dEmpleado.save(empleado);
+		if (objEmpleado == null){
+			return false;
+		}else{
+			return true;
+		}		
+	}
+	
+	@Override
+	public boolean modificar(Empleado empleado) {
+		boolean flag = false;
+		try {
+			dEmpleado.save(empleado);
+			flag = true;
+		}
+		catch(Exception ex) {
+			System.out.println("Sucedio un roche");
+		}
+		return flag;
+	}
+
+	@Override
+	public void eliminar(int idEmpleado) {
+		dEmpleado.deleteById(idEmpleado);
+	}
+	
+	@Override
+		
+	public Optional<Empleado> listarId(int idEmpleado) {
+		return dEmpleado.findById(idEmpleado);
+	}
+	
+	@Override
+	
+	public List<Empleado> buscarEmpleado(String nombreEmpleado) {	
+		return dEmpleado.buscarEmpleado(nombreEmpleado);
+	}
+	
+	@Override
+
+	public List<Empleado> listar() {	
+		return dEmpleado.findAll();
+	}
+}
+
+ENTRADA
+package pe.edu.upc.spring.serviceimpl;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import pe.edu.upc.spring.model.Entrada;
+import pe.edu.upc.spring.repository.IEntradaDAO;
+import pe.edu.upc.spring.service.IEntradaService;
+
+@Service
+public class EntradaServiceImpl implements  IEntradaService{
+	@Autowired
+	private IEntradaDAO dEntrada;
+	@Override
+	public boolean insertar(Entrada entrada) {
+		Entrada objEntrada = dEntrada.save(entrada);
+		if(objEntrada == null) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	@Override
+	public boolean modificar(Entrada entrada) {
+		boolean flag = false;
+		try {
+			dEntrada.save(entrada);
+			flag = true;
+		}
+		catch(Exception ex) {
+			System.out.println("Sucedio un roche");
+		}
+		return flag;
+	}
+	@Override
+	public void eliminar(int idEntrada) {
+		dEntrada.deleteById(idEntrada);
+	}
+	@Override
+	public Optional<Entrada> listarId(int idEntrada){
+		return dEntrada.findById(idEntrada);
+	}
+	@Override
+	public List<Entrada> listar(){
+		return dEntrada.findAll();
+	}
+	
+}
