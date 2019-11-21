@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>BUTACA</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css"></link>
+
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+
+
+</head>
+<body>
+	
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+		
+		<form th:action="@{/butaca/registrar}" method="post" th:object="${butaca}"
+		
+			enctype="multipart/form-data">
+			<div class="form-group">
+			<!-- *{} Setea la variable -->
+				<label for="idbutaca">ID:</label> <input type="text"
+					class="form-control" th:field="*{idButaca}"></input>
+				<div class="form-group">
+					<label for="nombre">NOMBRE:</label> <input type="text"  pattern="[A-Za-z-_-ñ\s]+" title="Solo se admiten letras"
+						th:field="*{nombre}" class="form-control" id="nombre"></input>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+						
+					<label for="sala" class=" col-sm-2 col-form-label">SALA: </label> <select
+						class="form-control" th:field="*{sala.idSala}">
+						<option th:each="r: ${listaSalas}" th:value="${r.idSala}"
+							th:text="${r.nombreSala}"
+							th:selected="(${r.idSala} == *{sala.idSala})"></option>
+					</select>
+				</div>
+
+			</div>
+<div th:if= "${mensaje eq true}" class="alert alert-danger">La butaca ya se encuentra registrada</div>
+<div th:if= "${danger eq true}" class="alert alert-danger">Registro asociado a otra tabla</div>
+			<button type="submit" class="btn btn-primary">Aceptar</button>
+			<a href="/sala/listar" class="btn btn-danger">Cancelar</a>
+
+		</form>
+	</div>
+	<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Dia</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css"></link>
+
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{/js/dia.js}"></script>
+
+
+
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+		<form th:action="@{/dia/registrar}" method="post" th:object="${dia}">
+			<div class="form-group">
+				<label for="iddia">ID:</label> <input type="text"
+					class="form-control" th:field="*{idDia}"></input>
+
+				<div class="form-group">
+					<label for="nombre">NOMBRE:</label> <input type="text"  pattern="[A-Za-z-_-ñ\s]+" title="Solo se admiten letras"
+						th:field="*{nombreDia}" class="form-control" id="nombre"></input>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('nombreDia')}" th:errors="*{nombreDia}"></div>
+
+				</div>
+			</div>
+			<div th:if= "${mensaje eq true}" class="alert alert-danger">El dia ya se encuentra registrado</div>
+			<div th:if= "${danger eq true}" class="alert alert-danger">Registro asociado a otra tabla</div>
+			<button type="submit" class="btn btn-primary">Aceptar</button>
+			<a href="/dia/listar" class="btn btn-danger">Cancelar</a>
+
+		</form>
+	</div>
+	<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Tipo de Documento</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css"></link>
+
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{/js/tipodocumento.js}"></script>
+
+
+
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+		<form th:action="@{/tipodocumento/registrar}" method="post" th:object="${tipodocumento}">
+			<div class="form-group">
+				<label for="idTipoDocumento">ID:</label> <input type="text"
+					class="form-control" th:field="*{idTipoDocumento}"></input>
+
+				<div class="form-group">
+					<label for="nombre">NOMBRE:</label> <input type="text"   pattern="[A-Za-z-_-ñ\s]+" title="Solo se admiten letras"
+						th:field="*{nombreTipoDocumento}" class="form-control" id="nombre"></input>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('nombreTipoDocumento')}" th:errors="*{nombreTipoDocumento}"></div>
+
+				</div>
+			</div>
+				<div th:if= "${mensaje eq true}" class="alert alert-danger">El nombre del documento ya se encuentra registrado</div>
+		<div th:if= "${danger eq true}" class="alert alert-danger">Registro asociado a otra tabla</div>
+			<button type="submit" class="btn btn-primary">Aceptar</button>
+			<a href="/tipodocumento/listar" class="btn btn-danger">Cancelar</a>
+
+		</form>
+	</div>
+	<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>FUNCION</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css"></link>
+
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+
+
+</head>
+<body>
+	
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+		
+		<form th:action="@{/funcion/registrar}" method="post" th:object="${funcion}"
+		
+			enctype="multipart/form-data">
+			<div class="form-group">
+			<!-- *{} Setea la variable -->
+				<label for="idfuncion">ID:</label> <input type="text"
+					class="form-control" th:field="*{idFuncion}"></input>
+				<div class="form-group">
+					<label for="peli" class=" col-sm-2 col-form-label">PELICULA: </label> <select
+						class="form-control" th:field="*{pelicula.idPelicula}">
+						<option th:each="r: ${listaPeliculas}" th:value="${r.idPelicula}"
+							th:text="${r.nombrePelicula}"
+							th:selected="(${r.idPelicula} == *{pelicula.idPelicula})"></option>
+					</select>	
+					
+					<label for="horafuncion"> FUNCION:</label> <input
+						type="time" th:field="*{horafuncion}" class="form-control"
+						id="horafuncion"></input>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('horafuncion')}"
+						th:errors="*{horafuncion}"></div>
+			
+								
+					
+
+				</div>
+
+			</div>
+<div th:if= "${mensaje eq true}" class="alert alert-danger">La funcion ya se encuentra registrada</div>
+	<div th:if= "${danger eq true}" class="alert alert-danger">Registro asociado a otra tabla</div>
+			<button type="submit" class="btn btn-primary">Aceptar</button>
+			<a href="/funcion/listar" class="btn btn-danger">Cancelar</a>
+
+		</form>
+	</div>
+	<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>EMPLEADO</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css"></link>
+
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+
+
+</head>
+<body>
+	<!-- Los fragment se insertan ya sea con th:include o th:replace -->
+	<!-- th:include simplemente se inserta dentro del espacio asignado -->
+	<!-- th:replace remplaza todo el espacio asignado por el fragment correspondiente -->
+	<!-- sintaxis th:include/replace="rutafragment :: Nombre del fragment -->
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+		<!-- th:action toma la accion de un form que se ejecutara por medio de un boton-->
+		<!-- @{} Expresion de enlace -->
+		<!-- ${} Declaracion de Variable -->
+		<!-- th:object declara un objeto que sera usado por los *{} -->
+		<form th:action="@{/empleado/registrar}" method="post" th:object="${empleado}"
+		
+			enctype="multipart/form-data">
+			<div class="form-group">
+			<!-- *{} Setea la variable -->
+				<label for="idempleado">ID:</label> <input type="text"
+					class="form-control" th:field="*{idEmpleado}"></input>
+				<div class="form-group">
+					<label for="nombre">NOMBRE:</label> <input type="text"  pattern="[A-Za-z-_-ñ\s]+" title="Solo se admiten letras"
+						th:field="*{nombreEmpleado}" class="form-control" id="nombre"></input>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('nombreEmpleado')}" th:errors="*{nombreEmpleado}"></div>
+						
+					<label for="direccion">DIRECCION:</label> <input type="text"
+						th:field="*{direccionEmpleado}" class="form-control" id="direccion"></input>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('direccionEmpleado')}" th:errors="*{direccionEmpleado}"></div>
+						
+					<label for="fechaNacimiento"> FECHA DE NACIMIENTO:</label> <input
+						type="date" th:field="*{birthDateEmpleado}" class="form-control"
+						id="fechaNacimiento"></input>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('birthDateEmpleado')}"
+						th:errors="*{birthDateEmpleado}"></div>
+						
+					<label for="numero">NUMERO CELULAR:</label> <input type="text"  
+						th:field="*{numeroCelular}" class="form-control" id="numero"></input>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('numeroCelular')}" th:errors="*{numeroCelular}" ></div>
+					
+					<label for="tipodo" class=" col-sm-2 col-form-label">TIPO DOCUMENTO: </label> <select
+						class="form-control" th:field="*{tipodocumento.idTipoDocumento}">
+						<option th:each="r: ${listaTipos}" th:value="${r.idTipoDocumento}"
+							th:text="${r.nombreTipoDocumento}"
+							th:selected="(${r.idTipoDocumento} == *{tipodocumento.idTipoDocumento})" ></option>
+					</select>					
+					<label for="numerodoc">NUMERO DE DOCUMENTO:</label> <input type="text" 
+						th:field="*{numeroDocumento}" class="form-control" id="numerodoc"></input>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('numeroDocumento')}" th:errors="*{numeroDocumento}"></div>
+
+				</div>
+
+			</div>
+	<div th:if= "${mensaje eq true}" class="alert alert-danger">El documento de empleado ya se encuentra registrado</div>
+	<div th:if= "${danger eq true}" class="alert alert-danger">Registro asociado a otra tabla</div>
+			<button type="submit" class="btn btn-primary">Aceptar</button>
+			<a href="/empleado/listar" class="btn btn-danger">Cancelar</a>
+
+		</form>
+	</div>
+	<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Genero</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css"></link>
+
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{/js/genero.js}"></script>
+
+
+
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+		<form th:action="@{/genero/registrar}" method="post" th:object="${genero}">
+			<div class="form-group">
+				<label for="idgenero">ID:</label> <input type="text"
+					class="form-control" th:field="*{idGenero}"></input>
+
+				<div class="form-group">
+					<label for="nombre">NOMBRE:</label> <input type="text"  pattern="[A-Za-z-_-ñ\s]+" title="Solo se admiten letras"
+						th:field="*{nombreGenero}" class="form-control" id="nombre"></input>
+					<div class="alert alert-danger"
+						th:if="${#fields.hasErrors('nombreGenero')}" th:errors="*{nombreGenero}"></div>
+
+				</div>
+			</div>
+			<div th:if= "${mensaje eq true}" class="alert alert-danger">El genero ya se encuentra registrado</div>
+			<div th:if= "${danger eq true}" class="alert alert-danger">Registro asociado a otra tabla</div>
+			<button type="submit" class="btn btn-primary">Aceptar</button>
+			<a href="/genero/listar" class="btn btn-danger">Cancelar</a>
+
+		</form>
+	</div>
+	<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
